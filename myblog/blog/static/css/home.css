@@ -1,0 +1,33 @@
+/* .imgBx{
+    max-width: 400px;
+} */
+.imgBx img {
+    max-width: 400px;
+    object-fit: contain;
+    height: 40vh;
+    overflow: hidden;
+}
+.tag_name{
+    text-decoration: none;
+    color: rgb(241, 188, 12);
+    font-weight: 600;
+    cursor: pointer;
+}
+@media (max-width: 425px) {
+    .imgBx img {
+        max-width: 380px;
+    }
+.textContent{
+    width: 100%;
+}
+  }
+
+
+@media (max-width: 320x) {
+    .imgBx img {
+        max-width: 380px;
+    }
+.textContent{
+    width: 100%;
+}
+  }

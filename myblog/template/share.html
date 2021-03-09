@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}
+Share {{ post.title }}      
+{% endblock title %}
+
+{% load static %}
+
+{% block css %}
+      
+{% endblock css %}
+
+{% block content %}
+<div class="container bg-dark text-white" style="height: 100vh;">
+        <h1 class=" py-3 text-center text-white "> Share your post Now </h1>
+
+        
+        {% if sent %}
+                       <div class="bg-light text-dark">
+                        <h1 class="py-3 text-success"> E-mail Successfully sent </h1>
+                        <hr>
+                        <p class="text-center">
+                        "{{ post.title }}" was Successfully sent to {{ form.cleaned_data.to }}.
+                        </p>
+                                <div class="share py-3">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                  <a class="btn btn-primary me-md-2" href="{% url 'blog:Post' %}" type="button">Home</a>
+                                </div>
+                              </div>
+                       </div>
+        {% else %}
+                <div class="row align-items-center">
+                        <h1 class="text-danger text-center fs-6"> Share " {{ post.title }}" by Email </h1>
+                        <div class="col-md-6 offset-md-3">
+                                <form action="" method="POST" class="row g-3">
+                                        {{ form.as_table  }}
+                                        {% csrf_token %}
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3 ">
+                                                <input class="btn btn-success me-md-2" type="submit" value=" Send E-mail">
+                                        
+                                        </div>
+                                </form>
+                        </div>
+                </div>
+                
+        {% endif %}    
+</div>
+
+                
+{% endblock content %}
+
+{% block script %}
+      
+{% endblock script %}

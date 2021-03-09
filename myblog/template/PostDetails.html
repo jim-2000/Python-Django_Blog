@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}
+      {{ post.title }}
+{% endblock title %}
+{% load static %}
+
+{% block css %}
+      
+{% endblock css %}
+
+{% block content %}
+
+
+        
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12 col-sm-12">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" height="800" width="100%">
+    </div>
+
+  </div>
+
+  
+  <hr>
+  <h1 class="text-uppercase text-center">{{ post.title }}</h1>
+<hr>
+  <div class="row px-2 py-3">
+    <div class="col-md-12 col-sm-12 d-sm-flex">
+        <h6 class="lh-base border border-1 p-2">{{ post.body }}</h6>
+        <br>
+    </div>
+  </div>
+<div class="row">
+  <div class="share py-2">
+    <div class="d-md-flex justify-content-md-end justify-content-sm-end">
+      <a class="btn btn-success me-md-2" type="button" href="{% url 'blog:Share' post.id %}" >Share</a>        
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-md-4">
+  {% with comments.count as total_comment %}
+      <h4>{{ total_comment }} comment{{ total_comment|pluralize }}  </h4>  
+  {% endwith %}
+    </div>
+  </div>
+
+
+  {% for comment in  comments %}
+
+<div class="row">
+  <div class="col-md-6 col-sm-12 shadow-lg py-2 d-sm-flex">
+    <p class="text-success text-start px-2">
+      {{ foorloop.counter }} {{ comment.name }}
+    </p>
+
+    <div class="border border-warning p-2"> 
+      <p>{{ comment.comment|linebreaks }}</p>
+      <br>
+      <p class="text-end text-danger"> {{ comment.created }} </p>
+   </div>
+  </div>
+  <br>
+</div>
+  {% empty %} 
+  <p class="text-center text-danger">There is No comment </p>
+
+{% endfor %}
+
+ 
+
+  <div class="row">
+    
+    {% if new_comment %}
+      <div class="col-md-8">
+        <h4 class="text-center text-success py-3"> Your Comment has been added </h4>
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end py-3">
+          <a class="btn btn-primary me-md-2" type="button" href="{{ post.get_absolute_url }}" >see comment </a>
+
+        </div> -->
+      </div>
+
+      {% else %}
+      <h6> Add a new Comment </h6>
+      <div class="col-md-4 col-sm-12 d-sm-flex " >
+        <form action="" method="POST">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end py-2 ">
+          <input class="btn btn-success me-md-2" type="submit" value="comment">
+          </div>
+
+        </form>
+      </div>
+     
+    {% endif %}
+      
+  </div>
+
+  <div class="row py-2">
+    <div class="col-md-12">
+    {% for post in similar_post %}  
+      <div class="col-md-3 col-sm-12 shadow-lg">
+          <img src="{{ post.image.url}}" width="200" height="220">
+          <p>
+            <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a>
+          </p>
+
+          
+      </div>
+      {% empty %}
+      <h1> There is No similar_post Yet </h1>
+    {% endfor %}
+    </div>
+    
+  </div>
+
+</div>
+
+
+{% endblock content %}
+
+{% block script %}
+      
+{% endblock script %}
